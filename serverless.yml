@@ -1,0 +1,171 @@
+service: text-to-hire-functions
+#frameworkVersion: ">=1.1.0 <2.0.0"
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-webpack
+  # - serverless-webpack
+custom:
+  defaultStage: dev
+  environment: ${file(env.yml):${self:provider.stage}, file(env.yml):default}
+  useDotenv: true
+  webpack:
+    webpackConfig: './webpack.config.js'
+    packExternalModulesMaxBuffer: 1000000
+    includeModules: true
+    packagerOptions:
+      scripts:
+        - npm rebuild grpc --target=8.1.0 --target_arch=x64 --target_platform=linux --target_libc=glibc
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: ${opt:stage, self:custom.defaultStage}
+  role: arn:aws:iam::933153212182:user/hr-sms-app
+  region: us-east-2
+  memorySize: 1024
+  timeout: 10
+  environment:
+    twilioAccountSid: ${env:TWILIO_ACCOUNT_SID}
+    twilioAuthToken: ${env:TWILIO_AUTH_TOKEN}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+
+      Resource: '*'
+
+  package:
+    exclude:
+      -node_modules/**
+      -venv/**
+    individually: true
+
+      #custom:
+      #  swaggerApi:
+      #    updateDeployemnts: true
+      #    usePackageVersion: true
+      #     apis:
+      #      PrimaryApi:
+      #       Name: ${self:provider.stage}-${self:service}-PrimaryApi
+      #      Body: ${file(./some-swagger-file.yaml)}
+      #     Lambda: StartConversation
+    #    Stage: dev
+
+functions:
+  SendSms:
+    handler: handler.sendSms
+    events:
+      - http:
+          path: api/sendSms
+          method: post
+          integration: lambda
+          cors: true
+  ReceiveSms:
+    handler: lambda-endpoints/receive_webhook.handler
+    events:
+      - http:
+          path: api/receiveSms
+          method: post
+          integration: lambda
+          cors: true
+  # StartConversation:
+  #   handler: lambda-endpoints/startConversation.handler
+  #   events:
+  #     - http:
+  #         path: api/start-conversation
+  #         method: post
+  #         integration: lambda
+  #         cors: true
+
+  # GetConvosByCardId:
+  #   handler: lambda-endpoints/getAllApplicantsById.list
+  #   events:
+  #     - http:
+  #         path: api/convosByCardId/{cardId}
+  #         method: GET
+  #         integration: lambda
+  #         cors: true
+  # AcceptConversation:
+  #   handler: lambda-endpoints/acceptConversation.handler
+  #   events:
+  #     - http:
+  #         path: api/acceptConversationById/{ID}
+  #         method: PUT
+  #         integration: lambda
+  #         cors: true
+  CreateUser:
+    handler: lambda-endpoints/createUser.handler
+    events:
+      - http:
+          path: api/createUser
+          method: POST
+          integration: lambda
+          cors: true
+  # UpdateUser:
+  #   handler: lambda-endpoints/updateAwsUser.handler
+  #   events:
+  #     - http:
+  #         path: api/updateUser{ID}
+  #         method: POST
+  #         integration: lambda
+  #         cors: true
+resources:
+  Resources:
+    UserTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: users
+        AttributeDefinitions:
+          - AttributeName: ID
+            AttributeType: S
+          - AttributeName: applicantId
+            AttributeType: S
+          - AttributeName: phoneNumber
+            AttributeType: S
+        KeySchema:
+          - AttributeName: ID
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: applicantIdIndex
+            KeySchema:
+              - AttributeName: applicantId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: PhoneNumberIndex
+            KeySchema:
+              - AttributeName: phoneNumber
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+    ConversationTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: conversations
+        AttributeDefinitions:
+          - AttributeName: ID
+            AttributeType: S
+          - AttributeName: hrMangerPhone
+            AttributeType: S
+          - AttributeName: applicantPhone
+            AttributeType: S
+        KeySchema:
+          - AttributeName: ID
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: applicantPhoneIndex
+            KeySchema:
+              - AttributeName: applicantPhone
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: HrManagerPhoneIndex
+            KeySchema:
+              - AttributeName: hrManagerPhone
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+
+        
+        

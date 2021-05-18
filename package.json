@@ -1,0 +1,30 @@
+{
+  "name": "test-2-hire",
+  "version": "1.0.0",
+  "description": "sends applicants the ability to request job applications through sms messaging. Provides initial checklist of on-boarding new employees",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brandon Twitty",
+  "license": "ISC",
+  "dependencies": {
+    "@middy/core": "^1.5.2",
+    "dotenv": "^8.2.0",
+    "firebase-admin": "^8.10.0",
+    "request": "^2.81.0",
+    "serverless-s3-sync": "^1.10.6",
+    "twilio": "^3.46.0",
+    "uuid": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.72",
+    "aws-sdk": "^2.639.0",
+    "serverless": "^1.75.1",
+    "serverless-dotenv-plugin": "^2.4.2",
+    "serverless-http": "^2.5.0",
+    "serverless-webpack": "^5.3.5",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-node-externals": "^2.5.2"
+  }
+}
