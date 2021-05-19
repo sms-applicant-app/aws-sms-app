@@ -117,26 +117,9 @@ resources:
         AttributeDefinitions:
           - AttributeName: ID
             AttributeType: S
-          - AttributeName: applicantId
-            AttributeType: S
-          - AttributeName: phoneNumber
-            AttributeType: S
         KeySchema:
           - AttributeName: ID
             KeyType: HASH
-        GlobalSecondaryIndexes:
-          - IndexName: applicantIdIndex
-            KeySchema:
-              - AttributeName: applicantId
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
-          - IndexName: PhoneNumberIndex
-            KeySchema:
-              - AttributeName: phoneNumber
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
     ConversationTable:
       Type: AWS::DynamoDB::Table
@@ -145,26 +128,9 @@ resources:
         AttributeDefinitions:
           - AttributeName: ID
             AttributeType: S
-          - AttributeName: hrMangerPhone
-            AttributeType: S
-          - AttributeName: applicantPhone
-            AttributeType: S
         KeySchema:
           - AttributeName: ID
             KeyType: HASH
-        GlobalSecondaryIndexes:
-          - IndexName: applicantPhoneIndex
-            KeySchema:
-              - AttributeName: applicantPhone
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
-          - IndexName: HrManagerPhoneIndex
-            KeySchema:
-              - AttributeName: hrManagerPhone
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
 
         
