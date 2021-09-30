@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "sms-applicant-management-app",
+  "private_key_id": "fc784dae854bcdae6e584fdbb991f06b9bad5f5d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDmrPl2DkNqvc1z\nzJJNRgJXMlhqjB7VBEKj/B9b581VqjzTpzC7pkq80+PrYTY6vObWgidK5qWR+EtL\nSZ2Cl4ajxbnIOHnE/lTCdBfgjkSr+RZkldHbA9sIqXRE6HTPGgp5kYqsUNDBoEP4\nY6KulJGKN3gYB5xzpSP/emR0wpKZZfKAx6Iezb1vDyDLrA7jD6ig6ss+5TjcL2vS\nCPS2ngcbFlzgUkK06SsHitQjyP0EB3vicZ3Dyf76bdUjZPhafkFSCk7k3xhMbews\nBucx0gfBjSyHtKqF38qNDBah4GW7J96nxWipMrBfWgdIXY6Ya+X0iJ96Fjc7mOdc\nEc5GQUb3AgMBAAECggEAVrBIq6Iemd2seUk27g1SUdyct6Xi7GDGfoQAcPSDCR+J\n7myVdt++lIn4zHti+t4EzjZpd8+IB3xNJ4UJyYsSUTe8Ys8+i9acmdsxIfW1Pv/D\n95cKH4mqZe3wwPiu9SmvKBKXD7zrRujowk8HUx6IN24zFqy9kgRMq/UeDXcVysl7\nlCJo4el49keyh1h8jXZgAnxzmUw4umARU2YyJtaROrlQg4Ud7B/LiFUDbAMt59Q9\nfl98AIc7r7OowXA9ZUDeCfwz3mmLWpAb9Xl5lG6bTqXuxnxlcd+otooXEw1V4cJD\nSCLR9LSxTf1MKxHqTRFTDDtkfQwbQ1h0BaoIQ2iBCQKBgQD3dKffiY9hL4iC2eAX\nYa8g/bY3YcgFI2+EwYlPxrjYfXs6vHnGIb532huUWNHPxqRfIeVqB5pd/GjsSBRh\nso9yC9FNWRleMHchOoRp4EHOdqNFWCs8sv2fksOm8O3LjgLYL8ALUiurXTVvbrZ2\nyOoBMQa5XgJX84WvT5aehDNhawKBgQDuo/6c1o6wPHvfDbyAUKZKh/phGc7W6mUK\nBp5f1fRAyCI0RPHdYmkJrVctvN1btl/tpkAcvi3mtQmdCj6w+sBiyoH++OMNNcyg\n1IlUEJZD/FSlyoYShzuoAg9VlFFQusZyk0YMDStmOqZ1ETWILtjsaHhRekuaWkHv\n8U9gI4C3pQKBgD5EWXWzXKPc3SHoBy57AyFvFinrbfR1DTu/o3iyjZLUSGzoPlAv\n74ijFmuGygzZdEUH931tuldKC3DhVlebIeNVu+4VrH95/JAc9HLb3lNAoSby37Zf\nZ9h+isL4Py4IZwjVQyLWI2z0gFyw5DMRrWhtWL7OPBK7kXkissjihTdPAoGAR9Be\nLMB8jBiHhmZR1aNvh3pIJLRphE9hPJUlT93I9T3E3UnqJx8YUOszEvaE/rZxQ8kF\n/iBVG9pbHEEbAJNVFeWvHRW07iLEg5myAfRD5A2pQ4Mgua6sizCjgLNzjQHH+m7L\nY5ELAGah9RTKsUK30NzXaF2PJtIGibhqlJnagGkCgYACUyUQATaDaMWBi0AvzpUc\n+HRW7WNH9VEoMFoa6mQu5U2+tsf0tYiao6BWDfKM/qFBcw7833CAzJTXHNtb1WlB\nMyE4WAqCMbSGU7QVFPThEvWtxTdODhQLNRJO/h34LnRYsua1O/TcTtxsKgOk3XFe\nfxcWqQMRg5LwG77iJkMbfg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-cwvsv@sms-applicant-management-app.iam.gserviceaccount.com",
+  "client_id": "101971911087029140348",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-cwvsv%40sms-applicant-management-app.iam.gserviceaccount.com"
+}

@@ -10,6 +10,7 @@
   "dependencies": {
     "@middy/core": "^1.5.2",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "firebase-admin": "^8.10.0",
     "request": "^2.81.0",
     "serverless-s3-sync": "^1.10.6",
@@ -21,7 +22,7 @@
     "aws-sdk": "^2.639.0",
     "serverless": "^1.75.1",
     "serverless-dotenv-plugin": "^2.4.2",
-    "serverless-http": "^2.5.0",
+    "serverless-http": "^2.7.0",
     "serverless-webpack": "^5.3.5",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",

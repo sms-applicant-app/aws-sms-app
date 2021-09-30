@@ -19,8 +19,8 @@ provider:
   name: aws
   runtime: nodejs10.x
   stage: ${opt:stage, self:custom.defaultStage}
-  role: arn:aws:iam::933153212182:user/hr-sms-app
-  region: us-east-2
+  # role: arn:aws:iam::933153212182:role/candidate-service-dev-sa-east-1-lambdaRole
+  region: us-east-1
   memorySize: 1024
   timeout: 10
   environment:
@@ -64,6 +64,14 @@ functions:
     events:
       - http:
           path: api/receiveSms
+          method: post
+          integration: lambda
+          cors: true
+  RequestInterview:
+    handler: lambda-endpoints/request_interview.handler
+    events:
+      - http:
+          path: api/requestInterview
           method: post
           integration: lambda
           cors: true
@@ -133,5 +141,5 @@ resources:
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
 
-        
-        
+
+

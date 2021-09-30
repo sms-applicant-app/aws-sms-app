@@ -16,5 +16,6 @@ module.exports.sendSms = (event, context, callback) => {
         //to: event.body.to,
        // body: event.body.message || '',
        // from: event.body.from
+        // andrews phone number 3149714030
     };
 };

@@ -2,6 +2,11 @@
 const Responses = require('../common/API_Response');
 const Dynamo = require('../common/Dynamo');
 const SmsService = require('../common/SmsService');
+const admin = require('firebase-admin');
+const serviceAccount = require('../fb-key.json')
+admin.initializeApp({
+	credential: admin.credential.cert(serviceAccount)
+});
 const AWS = require('aws-sdk');
 const SystemMessages = require('../common/SystemMessages');
 const uuid = require ("uuid");
@@ -10,17 +15,50 @@ const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = require('twilio')(twilioAccountSid, twilioAuthToken);
 const { _200, _400 } = require('../common/API_Response');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const db = admin.firestore();
 module.exports.handler = async (event, context, callback) => {
-	const twiml = new MessagingResponse();
 	console.log(`Incoming message: ${JSON.stringify(event.body)}`);
-	twiml.message('The Robots are coming! Head for the hills!');
+		// (314) 526-2241 twilio relay number
 
-		const originPhone = (event.body.From + '').replace(/\D/g, '');
-		const targetPhone = (event.body.To + '').replace(/\D/g, '');
-		const messageContent = event.body.Body;
 
-		console.log('origin phone =', originPhone, 'target phone =', targetPhone, 'message body = ', messageContent)
+		let userPhone = (event.body.From + '').replace(/\D/g, '');
+		let twilioRelayPhone = (event.body.To + '').replace(/\D/g, '');
+		let messageContent = (event.body.Body + '').replace(/\D/g, '');
 
+		console.log('origin phone =', userPhone, 'target phone =', twilioRelayPhone, 'message body = ', event.body.Body)
+		const jobsDB = db.collection('jobs');
+		const openPositions = await db.collection('jobs').where('storeId', '==', event.body.Body).get()
+	openPositions.forEach(position =>{
+		console.log('retrieved positions from DB', position)
+	})
+
+			const smsService = new SmsService()
+			//reply to user thanks for wanting to apply please follow these steps to get started
+			const replyTwMessage ={
+				from: twilioRelayPhone,
+				to: userPhone,
+				body: `Thanks for wanting to apply. Please follow these steps to get started https://applicant.hirenow.us/positions/${event.body.Body}`
+			}
+
+			//TODO pull in hiring managers phone to identify the store and create conversation
+			console.log('sending message reply to applicant', JSON.stringify(replyTwMessage))
+			const twMessageInstance = await twilioClient.messages.create(replyTwMessage);
+			console.log(`Twilio Response: ${JSON.stringify(twMessageInstance)}`);
+			// todo possible save applicant info to user database
+			return _200('Success!!!');
+
+		const twMessage = {
+			from: (event.body.From + '').replace(/\D/g, ''),
+			to: (event.body.To +   '').replace(/\D/g, ''),
+			body: (event.body.Body + '').replace(/\D/g, '')
+		}
+
+
+	//const twMessageInstance = await twilioClient.messages.create(twMessage);
+	console.log(`Twilio Response: ${JSON.stringify(twMessageInstance)}`);
+	return _200('Success!!!');
+
+		// call the store by ID and relay the message from applicant to hiring manager
 	// get conversation where the user is origin phone and the proxy phone are in the same conversation
 /*	const convoWithOriginPhoneAndTargetPhone = await DynamoDB.Query({
 		TableName: 'conversation-temp',

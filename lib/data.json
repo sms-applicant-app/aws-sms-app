@@ -1,0 +1,12 @@
+{
+  "body": [
+    {
+      "resource": "lambda-endpoints/receive_webhook.handler",
+      "path": "api/receiveSms",
+    "From": "13145995164",
+    "To": "13145262241",
+    "Body": "HN001"
+  }
+  ]
+
+}
