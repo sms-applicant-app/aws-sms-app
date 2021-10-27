@@ -75,6 +75,22 @@ functions:
           method: post
           integration: lambda
           cors: true
+  SendOnboardingPacket:
+    handler: lambda-endpoints/sendOnboardingForms.handler
+    events:
+      - http:
+          path: api/sendOnboardingForms
+          method: post
+          integration: lambda
+          cors: true
+  DeclineApplicant:
+    handler: lambda-endpoints/declineApplicant.handler
+    events:
+      - http:
+          path: api/declineApplicant
+          method: post
+          integration: lambda
+          cors: true
   # StartConversation:
   #   handler: lambda-endpoints/startConversation.handler
   #   events:
