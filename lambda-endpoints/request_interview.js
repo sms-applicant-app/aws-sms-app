@@ -44,6 +44,6 @@ module.exports.handler = async (event, context, callback) => {
     console.log('sending message reply to applicant', JSON.stringify(replyTwMessage))
     const twMessageInstance = await twilioClient.messages.create(replyTwMessage);
     console.log(`Twilio Response: ${JSON.stringify(twMessageInstance)}`);
-    // todo possible save applicant info to user database
+
     return _200('Success!!!');
 };

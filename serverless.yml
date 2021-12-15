@@ -17,7 +17,7 @@ custom:
         - npm rebuild grpc --target=8.1.0 --target_arch=x64 --target_platform=linux --target_libc=glibc
 provider:
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs12.x
   stage: ${opt:stage, self:custom.defaultStage}
   # role: arn:aws:iam::933153212182:role/candidate-service-dev-sa-east-1-lambdaRole
   region: us-east-1
@@ -26,6 +26,7 @@ provider:
   environment:
     twilioAccountSid: ${env:TWILIO_ACCOUNT_SID}
     twilioAuthToken: ${env:TWILIO_AUTH_TOKEN}
+    paper: true,
   iamRoleStatements:
     - Effect: Allow
       Action:
