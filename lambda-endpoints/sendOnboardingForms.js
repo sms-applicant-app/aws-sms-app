@@ -13,12 +13,13 @@ const twilioClient = require('twilio')(twilioAccountSid, twilioAuthToken);
 const { _200, _400 } = require('../common/API_Response');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const db = admin.firestore();
-async function sendWelcomeMessageToNewHire(name, applicantPhone, twilioRelayPhone, linkToOnboardPapers, hiringManagerName, storePhone, startDate){
-
+async function sendWelcomeMessageToNewHire(name, applicantPhone,storeName, twilioRelayPhone, linkToOnboardPapers, hiringManagerName, storePhone, startDate){
+        console.log('sending message ','name', name,'applicantPhone', applicantPhone,'StoreName',storeName, 'twilio number',twilioRelayPhone,'link to onboarding forms', linkToOnboardPapers,'hirmanagers name=', hiringManagerName, 'Store Phone=',storePhone,'Start Date=', startDate )
     const smsService = new SmsService()
     await new Promise((Resolve, Reject) =>{
         try {
-            smsService.send(applicantPhone, twilioRelayPhone, SystemMessages.applicantSelectedForHire(name, linkToOnboardPapers, hiringManagerName, storePhone, startDate)).then(resp =>{
+            //name, storeName, linkToOnboardPapers, hiringManagerName, storePhone, startDate
+            smsService.send(applicantPhone, twilioRelayPhone, SystemMessages.applicantSelectedForHire(name, storeName, linkToOnboardPapers, hiringManagerName, storePhone, startDate)).then(resp =>{
                 Resolve(resp)
             })
         } catch {
@@ -38,6 +39,7 @@ module.exports.handler = async (event, context, callback) => {
     let applicantPhone = (event.body.applicantPhone + '').replace(/\D/g, '');
     let twilioRelayPhone = relayNumber.replace(/\D/g, '');
     let messageContent = (event.body.Body + '').replace(/\D/g, '');
+    let storeName = (event.body.storeName)
     let name = event.body.name;
     let keyToOnboardPapers = `https://applicant.hirenow.us/onboarding/${keyToOnboardLinks}` ;
     let hiringManagerName = event.body.hiringManagersName;
@@ -49,7 +51,7 @@ module.exports.handler = async (event, context, callback) => {
       openPositions.forEach(position =>{
           console.log('retrieved positions from DB', position)
       })*/
-    const sendMessageToApplicant = await sendWelcomeMessageToNewHire(name, applicantPhone, twilioRelayPhone, keyToOnboardPapers, hiringManagerName, storePhone, startDate)
+    const sendMessageToApplicant = await sendWelcomeMessageToNewHire(name, applicantPhone, storeName, twilioRelayPhone, keyToOnboardPapers, hiringManagerName, storePhone, startDate)
     console.log('sending message', sendMessageToApplicant)
     return sendMessageToApplicant
 };
